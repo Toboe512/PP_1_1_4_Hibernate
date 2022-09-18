@@ -25,7 +25,7 @@ public class UserDaoJDBCImpl implements UserDao {
             INSERT INTO user(name, lastname, age)
             VALUES (?, ?, ?);
             """;
-    private final String DETETE_USER_TABLE = """
+    private final String DELETE_USER_TABLE = """
             DELETE FROM user;
             """;
 
@@ -94,7 +94,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
-        try (PreparedStatement userTablePreparedStatement = Util.getConnection().prepareStatement(DETETE_USER_TABLE)) {
+        try (PreparedStatement userTablePreparedStatement = Util.getConnection().prepareStatement(DELETE_USER_TABLE)) {
             userTablePreparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

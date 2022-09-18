@@ -34,97 +34,97 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            hibertnateUserTableSession.createSQLQuery(CREATE_USER_TABLE).addEntity(User.class).executeUpdate();
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.beginTransaction();
+            hibernateUserTableSession.createSQLQuery(CREATE_USER_TABLE).addEntity(User.class).executeUpdate();
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
     }
 
     @Override
     public void dropUsersTable() {
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            hibertnateUserTableSession.createSQLQuery(DROP_USER_TABLE).addEntity(User.class).executeUpdate();
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.beginTransaction();
+            hibernateUserTableSession.createSQLQuery(DROP_USER_TABLE).addEntity(User.class).executeUpdate();
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            hibertnateUserTableSession.save(new User(name, lastName, age));
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.beginTransaction();
+            hibernateUserTableSession.save(new User(name, lastName, age));
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
     }
 
     @Override
     public void removeUserById(long id) {
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            User user = hibertnateUserTableSession.get(User.class, id);
+            hibernateUserTableSession.beginTransaction();
+            User user = hibernateUserTableSession.get(User.class, id);
             if (user == null) {
                 return;
             }
-            hibertnateUserTableSession.delete(user);
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.delete(user);
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
         List<User> resultUserTable = null;
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            resultUserTable = hibertnateUserTableSession.createQuery("FROM User").getResultList();
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.beginTransaction();
+            resultUserTable = hibernateUserTableSession.createQuery("FROM User", User.class).getResultList();
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
         return resultUserTable;
     }
 
     @Override
     public void cleanUsersTable() {
-        Session hibertnateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
+        Session hibernateUserTableSession = HIBERNATE_USER_TABLE_CONFIGURATION.buildSessionFactory().getCurrentSession();
         try {
-            hibertnateUserTableSession.beginTransaction();
-            hibertnateUserTableSession.createSQLQuery(CLEAR_USER_TABLE).addEntity(User.class).executeUpdate();
-            hibertnateUserTableSession.getTransaction().commit();
+            hibernateUserTableSession.beginTransaction();
+            hibernateUserTableSession.createSQLQuery(CLEAR_USER_TABLE).addEntity(User.class).executeUpdate();
+            hibernateUserTableSession.getTransaction().commit();
         } catch (HibernateException e) {
-            hibertnateUserTableSession.getTransaction().rollback();
+            hibernateUserTableSession.getTransaction().rollback();
             throw new RuntimeException(e);
         } finally {
-            hibertnateUserTableSession.close();
+            hibernateUserTableSession.close();
         }
     }
 }
